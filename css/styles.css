@@ -1,0 +1,74 @@
+   .demo-layout-transparent {
+      background: url('../img/justdance.jpg') center / cover;
+    }
+    .demo-layout-transparent .mdl-layout__header,
+    .demo-layout-transparent .mdl-layout__drawer-button {
+      /* This background is dark, so we set text to white. Use 87% black instead if
+         your background is light. */
+      color: white;
+    }
+    .demo-layout-transparent .mdl-layout__header
+    {
+      height:75px;
+      padding-top:10px;
+    }
+    
+
+  .wohoo {
+    background: url('../img/first-card.png') center / cover;
+  }
+  .demo-card-wide > .mdl-card__menu {
+    color: #fff;
+  }
+  .mdl-textfield__input, .mdl-textfield__label 
+  {
+    margin-left:33px;
+  }
+  @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Roboto'), local('Roboto-Regular'), url(./roboto.woff2) format('woff2');
+      unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+    }
+    .contador
+    {
+      font-size: 200px;
+      font-family: 'Roboto', sans-serif;
+      height: 350px;
+      width: 600px;
+      margin: auto;
+      text-align: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      line-height:200px!important;
+    }
+    .contador::before
+    {
+      content:"#";
+    }
+    .contador p
+    {
+      font-family: font-family: 'Roboto', sans-serif;
+      font-size: 50px;
+    }
+    
+    tr:nth-child(even) {background-color: #f2f2f2}
+    
+   .full-width {
+    width: 95%;
+    margin: 15px auto 20px auto;
+  }
+  
+  .mdl-data-table__cell--non-numeric {
+    width: 45%;
+  }
+  
+  .download {
+        margin-top: 28px;
+    padding-right: 35px;
+    text-align: right;
+  }

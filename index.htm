@@ -1,0 +1,209 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Just Dance Queue</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+
+  <script src="jquery.js"></script>
+  <link rel="stylesheet" href="./material.min.css"/>
+  <script src="./material.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+  <script>
+    var contador = window.open("contador.htm","Contador","width=800,height=600");
+    
+    //is anything in localstorage?
+    if (localStorage.pessoas === undefined) {
+        pessoas = [];
+    } else {
+         // Parse the serialized data back into an array of objects
+         pessoas = JSON.parse(localStorage.pessoas);
+     }
+    if(localStorage.counter === undefined)
+    {     
+      localStorage.counter = 0;
+    }
+    $(document).ready(function() {
+       $('.mdl-person-add').attr('disabled','disabled');
+       $('#nome').keyup(function() {
+          if($(this).val() != '') {
+             $('.mdl-person-add').removeAttr('disabled');
+          }
+          else{
+            $('.mdl-person-add').attr('disabled','disabled');
+          }
+       });
+       $('.mdl-person-add').click(function() {
+        if($('.mdl-person-add').attr('disabled')!='disabled')
+        {
+          
+          var pessoa = {};          
+          pessoa.id = pessoas.length+1;
+          pessoa.nome = $('#nome').val();
+          pessoa.musica = $('#musica').val();
+          pessoas.push(pessoa);
+          $('#nome').val("");
+          $('#musica').val("");
+          $('.mdl-person-add').attr('disabled','disabled');
+          $('.is-dirty').removeClass('is-dirty');
+          saveDataToLocalStorage(pessoa);
+          var row = table.insertRow(0);
+
+          // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          var cell3 = row.insertCell(2);
+
+          // Add some text to the new cells:
+          cell1.innerHTML = pessoa.id;
+          cell2.innerHTML = pessoa.nome; 
+          cell3.innerHTML = pessoa.musica; 
+          cell3.className = cell2.className = "mdl-data-table__cell--non-numeric";
+        }
+      });
+      $('.mdl-counter-add').click(function() {   
+      localStorage.counter = parseInt(localStorage.counter)+1;
+      if(parseInt(localStorage.counter)<pessoas.length)
+      {     
+        contador.$('.contador span').text(parseInt(localStorage.counter)+1);   
+        contador.$('.contador p').text(pessoas[parseInt(localStorage.counter)].nome);        
+        $('.mateus').text(parseInt(localStorage.counter)+1+" - "+pessoas[parseInt(localStorage.counter)].nome)
+      }
+      else
+      {
+        localStorage.counter = parseInt(localStorage.counter)-1;
+      }
+      });
+   });
+   
+  function saveDataToLocalStorage(data)
+  {
+    //is anything in localstorage?
+    if (localStorage.pessoas === undefined) {
+        pessoas = [];
+    } else {
+         // Parse the serialized data back into an array of objects
+         pessoas = JSON.parse(localStorage.pessoas);
+     }
+     // Push the new data (whether it be an object or anything else) onto the array
+     pessoas.push(data);
+     // Re-serialize the array back into a string and store it in localStorage
+     localStorage.pessoas = JSON.stringify(pessoas);
+  }
+  function download(text, name, type) {
+      var a = document.getElementById("download");
+      var file = new Blob([text], {type: type});
+      a.href = URL.createObjectURL(file);
+      a.download = name;
+      a.click();
+  }
+  /*function reset()
+  { 
+    localStorage.removeItem('pessoas');
+    localStorage.removeItem('counter');
+  }*/
+  </script>
+  <style>
+ 
+  </style>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+<div class="demo-layout-transparent mdl-layout mdl-js-layout">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title"><img src="img/anipolitan.png" height=60/></span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation -->
+      <nav class="mdl-navigation"><img src="img/justdancetext.png" height=60/>
+      </nav>
+    </div>
+  </header>
+
+<main class="mdl-layout__content">
+		<div class="mdl-grid" style="height: 466px;">
+			<div class="mdl-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-shadow--2dp" style="height: 466px;">
+				<div class="mdl-card__title">
+					<h1 class="mdl-card__title-text">Inserir nome</h1>
+				</div>
+				<div class="mdl-card__supporting-text">
+					<form action="#">
+            <div class="mdl-textfield mdl-js-textfield">
+              <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+                <i class="material-icons">account_circle</i>
+            </label>
+              <input class="mdl-textfield__input" type="text" id="nome">
+              <label class="mdl-textfield__label" for="nome">Nome...</label>
+              
+            </div>
+            
+            <div class="mdl-textfield mdl-js-textfield">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+                <i class="material-icons">audiotrack</i>
+            </label>
+              <input class="mdl-textfield__input" type="text" id="musica">
+              <label class="mdl-textfield__label" for="musica">Musica...</label>
+            </div>
+          </form>
+				</div>
+								<div class="mdl-card__actions mdl-card--border">
+    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-person-add">Adicionar</a>
+
+	  </div>
+    				<div class="mdl-card__title">
+					<h1 class="mdl-card__title-text">Número atual</h1>
+          
+				</div>
+        <div class="mdl-card__supporting-text mateus"></div>
+			</div>
+			
+			<div class="mdl-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-shadow--2dp wohoo" style="height: 466px;">
+				<button id="proximo" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-counter-add">
+          <i class="material-icons">forward</i>
+        </button>
+        <div class="mdl-tooltip" data-mdl-for="proximo">
+          Chamar a próxima <strong>pessoa</strong> ou <strong>grupo</strong>
+        </div>
+			</div>
+      
+      <div class="mdl-card mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-shadow--2dp">
+      <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp full-width" id="mozi" style="padding: 5px">
+      <thead>
+        <tr>
+          <th style="max-width: 100px;">No.</th>
+          <th class="mdl-data-table__cell--non-numeric">Nome</th>
+          <th class="mdl-data-table__cell--non-numeric">Música</th>
+        </tr>
+      </thead>
+        <tbody>
+        </tbody>
+        
+        </table>
+         <div class="mdl-card__actions mdl-card--border download">
+          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="download(localStorage.pessoas, 'dados.json', 'text/plain');">
+            Download
+          </a>
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="download(localStorage.pessoas, 'dados.json', 'text/plain');">
+            <i class="material-icons">file_download</i>
+          </button>
+        </div>
+      </div>
+
+		</div>
+	</main>
+</div>
+<script>
+var table = document.getElementById("mozi").tBodies[0];
+</script>
+<a id="download" style="display:none;"></a>
+</body>
+</html>
