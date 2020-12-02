@@ -5,7 +5,7 @@
 Dance Queue
 ===
 
-[Dance Queue](dance-queue.github.io) is a framework used for Just Dance or any game which needs queue for events, symposius or even in your own game play.
+[Dance Queue](https://dance-queue.github.io) is a framework used for Just Dance or any game which needs queue for events, symposius or even in your own game play.
 
 Getting Started
 ---
